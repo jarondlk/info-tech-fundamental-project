@@ -76,7 +76,7 @@ header-includes:
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.75\textwidth]{class-distribution.png}
-\caption{Figure 1. Distribution of image count across selected plankton classes.}
+\caption{Distribution of image count across selected plankton classes.}
 \end{figure}
 
 ## Variable Correlations
@@ -84,17 +84,17 @@ header-includes:
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.75\textwidth]{brightness.png}
-\caption{Figure 2. Brightness distribution across the selected plankton classes.}
+\caption{Brightness distribution across the selected plankton classes.}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.75\textwidth]{aspect-ratio.png}
-\caption{Figure 3. Distribution of aspect ratios for images in each plankton class.}
+\caption{Distribution of aspect ratios for images in each plankton class.}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.75\textwidth]{contrast.png}
-\caption{Figure 4. Contrast values distribution across the selected plankton classes.}
+\caption{Contrast values distribution across the selected plankton classes.}
 \end{figure}

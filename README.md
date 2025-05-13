@@ -35,8 +35,10 @@ Strategy:
 
 ### Data preparation for modeling
 
-| Resize | "Ensure fixed input size for model (e.g., 224×224)" |
-| Normalize | "Scale pixel values to [0, 1] or [-1, 1]" |
+| Techniques | Description |
+| :-------- | :-------- |
+| Resize | Ensure fixed input size for model (e.g., 224×224) |
+| Normalize | Scale pixel values to [0, 1] or [-1, 1] |
 | Augmentation | Improve generalization and prevent overfitting |
 | Train-test split | Evaluate properly on unseen data |
 

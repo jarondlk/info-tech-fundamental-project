@@ -6,8 +6,6 @@
 > C4IM2501 Daffa Akbar Aprilio  
 > C5IM2015 Ganchimeg Namuunbayar  
 
----
-
 ## Introduction
 
 **Objectives**: To benchmark and compare the performance of various deep learning models, including Convolutional Neural Networks (CNNs) and Graph Convolutional Networks (GCNs), on plankton classification tasks.

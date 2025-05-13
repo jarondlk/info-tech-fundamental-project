@@ -31,6 +31,11 @@ Strategy:
 
 ### Exploratory data analysis
 
+![Alt text](assets/figures/eda_class-distribution.png)
+![Alt text](assets/figures/eda_aspect-ratio.png)
+![Alt text](assets/figures/eda_brightness.png)
+![Alt text](assets/figures/eda_contrast.png)
+
 ### Data preparation for modeling
 
 | Techniques | Description |

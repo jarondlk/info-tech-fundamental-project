@@ -64,11 +64,33 @@ Strategy:
 
 ## Unsupervised Learning
 
-### Data Preprocessing for Unsupervised
-
 ### Model Training for Unsupervised
 
-### Model Evaluation for Unsupervised
+We are combining deep learning-based feature extraction with classical unsupervised clustering to group images of species without using labeled data for training.
+
+The method involves:
+
+1. Using a pretrained CNN to extract high-level feature vectors from images.
+2. Applying KMeans clustering to group similar feature vectors.
+3. Evaluating the clusters by comparing them to true species labels using metrics like ARI.
+
+### Clustering Visualization
+
+![Alt text](assets/figures/unsup_tsne.png)
+
+### Adjusted Rand Index (ARI)
+
+- Clusters align well with the actual species classes, better than what would happen by chance.
+- This suggests that the feature extractor is capturing meaningful structure in the images.
+- However, it’s not perfect — some species are likely grouped together, possibly due to visual similarity or noise.
+
+![Alt text](assets/figures/unsup_conf.png)
+
+Why this works?
+
+- CNN feature embeddings separate visual patterns, Pretrained CNNs learn to detect hierarchical patterns — edges, textures, and object shapes — which generalize across domains.
+- Feature vectors from the last convolutional layer are semantically meaningful, these 512D vectors summarize key visual content and allow algorithms like KMeans to group similar-looking species.
+- Clustering reflects real visual similarity, KMeans groups together embeddings that are close in high-dimensional space, which translates to similar visual features in practice.
 
 ## Graph Network
 

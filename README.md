@@ -24,6 +24,8 @@ Strategy:
 
 ### Plankton classes to use in benchmarking
 
+![Alt text](assets/figures/species.png)
+
 - Dinobryon
 - Pseudonitzschia
 - Dactyliosolen

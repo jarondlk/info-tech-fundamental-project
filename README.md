@@ -50,6 +50,34 @@ Strategy:
 
 ## Deep Learning Modelings
 
-## Benchmarks
+1. Convolutional Neural Network
+2. Unsupervised Learning
+3. Graph Network
+
+## Convolutional Neural Network
+
+### Data Preprocessing for CNN
+
+### Model Training for CNN
+
+### Model Evaluation for CNN
+
+## Unsupervised Learning
+
+### Data Preprocessing for Unsupervised
+
+### Model Training for Unsupervised
+
+### Model Evaluation for Unsupervised
+
+## Graph Network
+
+### Data Preprocessing for Graph
+
+### Model Training for Graph
+
+### Model Evaluation for Graph
+
+## Benchmarkings
 
 ## Summary

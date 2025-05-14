@@ -68,7 +68,13 @@ Strategy:
 
 ### Model Training for Unsupervised
 
-### Model Evaluation for Unsupervised
+### Clustering Visualization
+
+![Alt text](assets/figures/unsup_tnse.png)
+
+### Adjusted Rand Index (ARI): 0.7307
+
+![Alt text](assets/figures/unsup_conf.png)
 
 ## Graph Network
 

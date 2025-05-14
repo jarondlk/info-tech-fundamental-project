@@ -64,15 +64,17 @@ Strategy:
 
 ## Unsupervised Learning
 
-### Data Preprocessing for Unsupervised
-
 ### Model Training for Unsupervised
 
 ### Clustering Visualization
 
-![Alt text](assets/figures/unsup_tnse.png)
+![Alt text](assets/figures/unsup_tsne.png)
 
-### Adjusted Rand Index (ARI): 0.7307
+### Adjusted Rand Index (ARI)
+
+- Clusters align well with the actual species classes, better than what would happen by chance.
+- This suggests that the feature extractor is capturing meaningful structure in the images.
+- However, it’s not perfect — some species are likely grouped together, possibly due to visual similarity or noise.
 
 ![Alt text](assets/figures/unsup_conf.png)
 

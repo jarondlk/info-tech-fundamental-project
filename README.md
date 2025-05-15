@@ -99,13 +99,55 @@ Why this works?
 - Feature vectors from the last convolutional layer are semantically meaningful, these 512D vectors summarize key visual content and allow algorithms like KMeans to group similar-looking species.
 - Clustering reflects real visual similarity, KMeans groups together embeddings that are close in high-dimensional space, which translates to similar visual features in practice.
 
-## Graph Network
+## Graph Neural Network
+### Model Training for Graph Neural Network Classification
 
-### Data Preprocessing for Graph
+We benchmark different **Graph Neural Networks (GNNs)** to classify graph-structured data derived from images (e.g., superpixel graphs). Unlike standard CNNs that operate on grid-based images, GNNs can capture relational and topological information inherent in graphs.
 
-### Model Training for Graph
+The method involves:
 
-### Model Evaluation for Graph
+1. Converting images into graph representations (e.g., superpixels as nodes, with edges based on spatial proximity or similarity).
+2. Training GNN models (GCN, GraphSAGE, GAT) to classify these graphs into species categories using labeled data.
+3. Evaluating model performance based on validation accuracy, training efficiency, and model complexity.
+
+### GNN Architectures Evaluated
+
+- **GCN (Graph Convolutional Network):** Aggregates neighbor features using a normalized adjacency matrix to update node embeddings.
+- **GraphSAGE:** Samples a fixed number of neighbors for each node and aggregates their features (mean, pooling, etc.), allowing inductive learning on large graphs.
+- **GAT (Graph Attention Network):** Utilizes attention mechanisms to learn weighted importance of neighbors, enhancing interpretability and dynamic neighbor influence.
+
+### Learning Curves
+
+Validation accuracy over training epochs shows how each model learns the classification task:
+
+![Learning Curves](assets/figures/graph/gcn_learning_curve.png)
+![Learning Curves](assets/figures/graph/sage_learning_curve.png)
+![Learning Curves](assets/figures/graph/gat_learning_curve.png)
+
+### GNN Benchmark Comparison
+
+- **Validation Accuracy:** How well each model generalizes to unseen graph data.
+- **Model Size:** Total number of learnable parameters.
+- **Epoch Time:** Computational efficiency per epoch.
+
+![Benchmark Comparison](assets/figures/graph/gnn_comparison.png)
+
+### Why GNNs for Graphified Images?
+
+- **Relational Inductive Bias:** GNNs leverage graph structures, capturing both local (neighbor relations) and global (graph topology) information.
+- **Flexible Node Aggregation:** GNNs aggregate node features in a learnable way, making them powerful for non-grid data where CNNs struggle.
+- **Superpixel Graphs:** By converting images into superpixel graphs, spatial relations and boundary structures are preserved, offering richer features for classification.
+- **Attention for Importance Weighing:** GAT’s attention mechanism helps focus on important node relationships, especially in noisy graph data.
+
+### Insights & Observations
+
+- **GCN** performs well on small to medium graphs with moderate complexity.
+- **GraphSAGE** scales better to larger graphs, thanks to neighbor sampling.
+- **GAT** often achieves higher accuracy in heterogeneous graphs where neighbor importance varies.
+- Trade-offs exist between accuracy, computational efficiency, and model complexity.
+
+This benchmark provides practical insights into selecting the right GNN architecture for graph-based image classification tasks.
+
 
 ## Benchmarkings
 

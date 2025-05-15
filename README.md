@@ -56,11 +56,18 @@ Strategy:
 
 ## Convolutional Neural Network
 
-### Data Preprocessing for CNN
-
 ### Model Training for CNN
 
+We are comparing the accuracy of 3 CNN models:
+1. ResNet18
+2. VGG16
+3. MobileNetV2
+
 ### Model Evaluation for CNN
+
+![Alt text](assets/graph/CNN_accuracy.png)
+
+At epoch 2, all 3 models reach a considerably similar accuracy (~0.99)
 
 ## Unsupervised Learning
 

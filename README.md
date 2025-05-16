@@ -151,4 +151,6 @@ This benchmark provides practical insights into selecting the right GNN architec
 
 ## Benchmarkings
 
+End of Project Update 2
+
 ## Summary

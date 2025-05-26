@@ -63,11 +63,24 @@ We are comparing the accuracy of 3 CNN models:
 2. VGG16
 3. MobileNetV2
 
+### Metrics for evaluating models
+1. Loss: loss function penalizes wrong model and guesses with low confidence
+2. Accuracy: correctly classified dataset (%)
+3. Time: per epoch
+4. Confusion matrix
+
 ### Model Evaluation for CNN
 
-![Alt text](assets/graph/CNN_accuracy.png)
+![Alt text](assets/graph/CNN_models_results.png)
 
-At epoch 2, all 3 models reach a considerably similar accuracy (~0.99)
+- vgg16 takes longest time to train, followed by both mobilenet_v2 &  resnet18
+- All model performs well (in terms of accuracy)
+
+### Confusion Matrix for Each Model
+
+![Alt text](assets/graph/CNN_conf_matr_VGG.png)
+![Alt text](assets/graph/CNN_conf_matr_mobilenet.png)
+![Alt text](assets/graph/CNN_conf_matr_resnet.png)
 
 ## Unsupervised Learning
 

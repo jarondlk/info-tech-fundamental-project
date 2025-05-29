@@ -228,6 +228,8 @@ Why SplineCNN for this task?
 
 ## Summary and Next Steps
 
+![alt](assets/figures/summary.png)
+
 ---
 
 **[IM20500231] Information Technology Fundamental Part I - Introduction to Materials Data Science**

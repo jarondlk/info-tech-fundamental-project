@@ -63,24 +63,11 @@ We are comparing the accuracy of 3 CNN models:
 2. VGG16
 3. MobileNetV2
 
-### Metrics for evaluating models
-1. Loss: loss function penalizes wrong model and guesses with low confidence
-2. Accuracy: correctly classified dataset (%)
-3. Time: per epoch
-4. Confusion matrix
-
 ### Model Evaluation for CNN
 
-![Alt text](assets/graph/CNN_models_results.png)
+![Alt text](assets/graph/CNN_accuracy.png)
 
-- vgg16 takes longest time to train, followed by both mobilenet_v2 &  resnet18
-- All model performs well (in terms of accuracy)
-
-### Confusion Matrix for Each Model
-
-![Alt text](assets/graph/CNN_conf_matr_VGG.png)
-![Alt text](assets/graph/CNN_conf_matr_mobilenet.png)
-![Alt text](assets/graph/CNN_conf_matr_resnet.png)
+At epoch 2, all 3 models reach a considerably similar accuracy (~0.99)
 
 ## Unsupervised Learning
 
@@ -113,25 +100,15 @@ Why this works?
 - Clustering reflects real visual similarity, KMeans groups together embeddings that are close in high-dimensional space, which translates to similar visual features in practice.
 
 ## Graph Neural Network
-
 ### Model Training for Graph Neural Network Classification
 
 We benchmark different **Graph Neural Networks (GNNs)** to classify graph-structured data derived from images (e.g., superpixel graphs). Unlike standard CNNs that operate on grid-based images, GNNs can capture relational and topological information inherent in graphs.
 
-#### Graph Construction
+The method involves:
 
-Each image is converted into a graph with the following structure:
-- **Nodes**: Superpixels generated using `n_segments = 100`
-- **Edges**: Based on spatial proximity between superpixels (i.e., neighboring superpixels are connected)
-- **Node Features**: A 3-dimensional RGB vector representing the average color of each superpixel
-
-
-#### Common GNN Architecture
-
-All models share a consistent architecture to ensure fair comparison:
-- **4 Graph Convolution Layers**
-- **Hidden Dimension**: 128 for each layer
-
+1. Converting images into graph representations (e.g., superpixels as nodes, with edges based on spatial proximity or similarity).
+2. Training GNN models (GCN, GraphSAGE, GAT) to classify these graphs into species categories using labeled data.
+3. Evaluating model performance based on validation accuracy, training efficiency, and model complexity.
 
 ### GNN Architectures Evaluated
 
@@ -143,9 +120,9 @@ All models share a consistent architecture to ensure fair comparison:
 
 Validation accuracy over training epochs shows how each model learns the classification task:
 
-![Learning Curves](assets/figures/graph/gcn_100epoch.png)
-![Learning Curves](assets/figures/graph/sage_100epoch.png)
-![Learning Curves](assets/figures/graph/gat_100epoch.png)
+![Learning Curves](assets/figures/graph/gcn_learning_curve.png)
+![Learning Curves](assets/figures/graph/sage_learning_curve.png)
+![Learning Curves](assets/figures/graph/gat_learning_curve.png)
 
 ### GNN Benchmark Comparison
 
@@ -153,70 +130,25 @@ Validation accuracy over training epochs shows how each model learns the classif
 - **Model Size:** Total number of learnable parameters.
 - **Epoch Time:** Computational efficiency per epoch.
 
-![Benchmark Comparison](assets/figures/graph/comparison_100epoch.png)
+![Benchmark Comparison](assets/figures/graph/gnn_comparison.png)
+
+### Why GNNs for Graphified Images?
+
+- **Relational Inductive Bias:** GNNs leverage graph structures, capturing both local (neighbor relations) and global (graph topology) information.
+- **Flexible Node Aggregation:** GNNs aggregate node features in a learnable way, making them powerful for non-grid data where CNNs struggle.
+- **Superpixel Graphs:** By converting images into superpixel graphs, spatial relations and boundary structures are preserved, offering richer features for classification.
+- **Attention for Importance Weighing:** GAT’s attention mechanism helps focus on important node relationships, especially in noisy graph data.
 
 ### Insights & Observations
 
-- **GCN** – Lowest accuracy, but has the fewest parameters.
-- **GraphSAGE** – Highest accuracy and fastest, but also has the most parameters.
-- **GAT** – Offers a good balance between accuracy and parameter count, but is the slowest.
+- **GCN** performs well on small to medium graphs with moderate complexity.
+- **GraphSAGE** scales better to larger graphs, thanks to neighbor sampling.
+- **GAT** often achieves higher accuracy in heterogeneous graphs where neighbor importance varies.
+- Trade-offs exist between accuracy, computational efficiency, and model complexity.
 
-This benchmark highlights the trade-offs between speed, accuracy, and model size, providing practical guidance for selecting the appropriate GNN architecture.
+This benchmark provides practical insights into selecting the right GNN architecture for graph-based image classification tasks.
 
 
-## Multiscale Wavelet Superpixels
+## Benchmarkings
 
-**Goal**: Replicate the paper “Image Classification using GNN and Multiscale Wavelet Superpixels”
-
-**Methods:**
-
-- Convert images
-- Superpixels
-- Graphs
-- Classify using SplineCNN
-
-### Image Classification using GNN and Multiscale Wavelet Superpixels
-
-The paper walked us through the followings:
-
-- WaveMesh: Introduces a wavelet-based method to generate multiscale, image-specific superpixels using a quadtree structure.
-- WavePool: Proposes a new pooling method tailored to WaveMesh, preserving spatial structure in GNNs.
-- Evaluation: Compares WaveMesh to SLIC superpixels using SplineCNN across MNIST, Fashion-MNIST, and CIFAR-10 datasets.
-- Findings: WaveMesh performs on par with SLIC; WavePool outperforms GraclusPool for multiscale superpixels.
-- This shows that GNNs benefit from adaptive superpixel structures, which in turn, offers a flexible alternative to fixed-grid inputs.
-
-### Superpixel - Node and Edges
-
-A superpixel is a group of connected pixels in an image that share similar characteristics, used to reduce the number of elements we process. Superpixels extracted using SLIC (n_segments=250)
-
-- **Node** represent one supoer pixel
-- **Edge** exists if two superpixels touch, defined by the Region Adjacency Graph
-
-![alt](assets/figures/mult_node.png)
-
-### Region Adjacency Graph (RAG) Generation
-
-Region Adjacency Graph (RAG) represents an image by turning each superpixel into a node and connecting nodes whose regions are adjacent. It captures spatial relationships and color similarity between superpixels.
-
-![alt](assets/figures/mult_rag.png)
-
-**My Implementation**:
-
-- Resize each plankton image to 224×224 and convert it to LAB color space, then apply **SLIC superpixel segmentation** with 250 segments to extract coherent regions.
-- A RAG is built using `rag_mean_color`, connecting neighboring superpixels based on color distance.
-- Each node stores its **mean RGB color** and **centroid position**.
-- Constructed `edge_index` for graph connectivity and compute **pseudo-coordinates (dx, dy)** as edge attributes.
-
-![alt](assets/figures/mult_superpixel.png)
-
-### Classify Using SplineCNN
-
-## Summary and Next Steps
-
----
-
-**[IM20500231] Information Technology Fundamental Part I - Introduction to Materials Data Science**
-
-> C4IM2508 Jaronchai Dilokkalayakul  
-> C4IM2501 Daffa Akbar Aprilio  
-> C5IM2015 Ganchimeg Namuunbayar  
+## Summary

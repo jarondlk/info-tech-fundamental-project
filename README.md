@@ -113,6 +113,7 @@ Why this works?
 - Clustering reflects real visual similarity, KMeans groups together embeddings that are close in high-dimensional space, which translates to similar visual features in practice.
 
 ## Graph Neural Network
+
 ### Model Training for Graph Neural Network Classification
 
 We benchmark different **Graph Neural Networks (GNNs)** to classify graph-structured data derived from images (e.g., superpixel graphs). Unlike standard CNNs that operate on grid-based images, GNNs can capture relational and topological information inherent in graphs.
@@ -161,9 +162,59 @@ Validation accuracy over training epochs shows how each model learns the classif
 
 This benchmark provides practical insights into selecting the right GNN architecture for graph-based image classification tasks.
 
+## Multiscale Wavelet Superpixels
 
-## Benchmarkings
+**Goal**: Replicate the paper “Image Classification using GNN and Multiscale Wavelet Superpixels”
 
-End of Project Update 2
+**Methods:**
 
-## Summary
+- Convert images
+- Superpixels
+- Graphs
+- Classify using SplineCNN
+
+### Image Classification using GNN and Multiscale Wavelet Superpixels
+
+The paper walked us through the followings:
+
+- WaveMesh: Introduces a wavelet-based method to generate multiscale, image-specific superpixels using a quadtree structure.
+- WavePool: Proposes a new pooling method tailored to WaveMesh, preserving spatial structure in GNNs.
+- Evaluation: Compares WaveMesh to SLIC superpixels using SplineCNN across MNIST, Fashion-MNIST, and CIFAR-10 datasets.
+- Findings: WaveMesh performs on par with SLIC; WavePool outperforms GraclusPool for multiscale superpixels.
+- This shows that GNNs benefit from adaptive superpixel structures, which in turn, offers a flexible alternative to fixed-grid inputs.
+
+### Superpixel - Node and Edges
+
+A superpixel is a group of connected pixels in an image that share similar characteristics, used to reduce the number of elements we process. Superpixels extracted using SLIC (n_segments=250)
+
+- **Node** represent one supoer pixel
+- **Edge** exists if two superpixels touch, defined by the Region Adjacency Graph
+
+![alt](assets/figures/mult_node.png)
+
+### Region Adjacency Graph (RAG) Generation
+
+Region Adjacency Graph (RAG) represents an image by turning each superpixel into a node and connecting nodes whose regions are adjacent. It captures spatial relationships and color similarity between superpixels.
+
+![alt](assets/figures/mult_rag.png)
+
+**My Implementation**:
+
+- Resize each plankton image to 224×224 and convert it to LAB color space, then apply **SLIC superpixel segmentation** with 250 segments to extract coherent regions.
+- A RAG is built using `rag_mean_color`, connecting neighboring superpixels based on color distance.
+- Each node stores its **mean RGB color** and **centroid position**.
+- Constructed `edge_index` for graph connectivity and compute **pseudo-coordinates (dx, dy)** as edge attributes.
+
+![alt](assets/figures/mult_superpixel.png)
+
+### Classify Using SplineCNN
+
+## Summary and Next Steps
+
+---
+
+**[IM20500231] Information Technology Fundamental Part I - Introduction to Materials Data Science**
+
+> C4IM2508 Jaronchai Dilokkalayakul  
+> C4IM2501 Daffa Akbar Aprilio  
+> C5IM2015 Ganchimeg Namuunbayar  

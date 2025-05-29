@@ -209,6 +209,21 @@ Region Adjacency Graph (RAG) represents an image by turning each superpixel into
 
 ### Classify Using SplineCNN
 
+Why SplineCNN for this task?
+
+- Superpixels produce an irregular mesh
+- Uses edge attributes (in your case, relative position (dx, dy)) as continuous input coordinates
+- SplineCNN respects geometric structure
+- Edge-aware filters to capture relationships between features
+
+| Layers | |
+| :-------- | :-------- |
+| SplineConv(3 → 32) | Applies learned filters over neighbor superpixels |
+| ReLU | Non-linear activation |
+| SplineConv(32 → 64) | Refines features using second convolutional layer |
+| GlobalMeanPool | Aggregates node features into a single vector |
+| Linear(64 → 128 → 4) | Fully connected layers for final classification |
+
 ## Summary and Next Steps
 
 ---

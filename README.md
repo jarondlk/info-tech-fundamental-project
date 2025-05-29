@@ -97,11 +97,20 @@ Why this works?
 
 We benchmark different **Graph Neural Networks (GNNs)** to classify graph-structured data derived from images (e.g., superpixel graphs). Unlike standard CNNs that operate on grid-based images, GNNs can capture relational and topological information inherent in graphs.
 
-The method involves:
+#### Graph Construction
 
-1. Converting images into graph representations (e.g., superpixels as nodes, with edges based on spatial proximity or similarity).
-2. Training GNN models (GCN, GraphSAGE, GAT) to classify these graphs into species categories using labeled data.
-3. Evaluating model performance based on validation accuracy, training efficiency, and model complexity.
+Each image is converted into a graph with the following structure:
+- **Nodes**: Superpixels generated using `n_segments = 100`
+- **Edges**: Based on spatial proximity between superpixels (i.e., neighboring superpixels are connected)
+- **Node Features**: A 3-dimensional RGB vector representing the average color of each superpixel
+
+
+#### Common GNN Architecture
+
+All models share a consistent architecture to ensure fair comparison:
+- **4 Graph Convolution Layers**
+- **Hidden Dimension**: 128 for each layer
+
 
 ### GNN Architectures Evaluated
 
@@ -113,9 +122,9 @@ The method involves:
 
 Validation accuracy over training epochs shows how each model learns the classification task:
 
-![Learning Curves](assets/figures/graph/gcn_learning_curve.png)
-![Learning Curves](assets/figures/graph/sage_learning_curve.png)
-![Learning Curves](assets/figures/graph/gat_learning_curve.png)
+![Learning Curves](assets/figures/graph/gcn_100epoch.png)
+![Learning Curves](assets/figures/graph/sage_100epoch.png)
+![Learning Curves](assets/figures/graph/gat_100epoch.png)
 
 ### GNN Benchmark Comparison
 
@@ -123,23 +132,16 @@ Validation accuracy over training epochs shows how each model learns the classif
 - **Model Size:** Total number of learnable parameters.
 - **Epoch Time:** Computational efficiency per epoch.
 
-![Benchmark Comparison](assets/figures/graph/gnn_comparison.png)
-
-### Why GNNs for Graphified Images?
-
-- **Relational Inductive Bias:** GNNs leverage graph structures, capturing both local (neighbor relations) and global (graph topology) information.
-- **Flexible Node Aggregation:** GNNs aggregate node features in a learnable way, making them powerful for non-grid data where CNNs struggle.
-- **Superpixel Graphs:** By converting images into superpixel graphs, spatial relations and boundary structures are preserved, offering richer features for classification.
-- **Attention for Importance Weighing:** GAT’s attention mechanism helps focus on important node relationships, especially in noisy graph data.
+![Benchmark Comparison](assets/figures/graph/comparison_100epoch.png)
 
 ### Insights & Observations
 
-- **GCN** performs well on small to medium graphs with moderate complexity.
-- **GraphSAGE** scales better to larger graphs, thanks to neighbor sampling.
-- **GAT** often achieves higher accuracy in heterogeneous graphs where neighbor importance varies.
-- Trade-offs exist between accuracy, computational efficiency, and model complexity.
+- **GCN** – Lowest accuracy, but has the fewest parameters.
+- **GraphSAGE** – Highest accuracy and fastest, but also has the most parameters.
+- **GAT** – Offers a good balance between accuracy and parameter count, but is the slowest.
 
-This benchmark provides practical insights into selecting the right GNN architecture for graph-based image classification tasks.
+This benchmark highlights the trade-offs between speed, accuracy, and model size, providing practical guidance for selecting the appropriate GNN architecture.
+
 
 
 ## Benchmarkings
